@@ -1,21 +1,42 @@
 import { useState, useEffect } from "react";
 
-export default function Dashboard() {
+//pages
+import { Login } from "../components/Login";
+
+//components
+import { Navbar } from "../components/Navbar";
+import { Sidebar } from "../components/Sidebar";
+import { Footer } from "../components/Footer";
+import { Main } from "../components/Dashboard/Main";
+
+export const Dashboard = () => {
   const [user, setUser] = useState(false);
 
-  useEffect(() => {
+  const handleLogin = () => {
+    setUser(true);
+  };
+
+  const handleLogout = () => {
     setUser(false);
-  }, []);
+  };
 
   if (!user) {
-    return <h1>Not logged in</h1>;
+    return (
+      <Login />
+    );
   }
 
   if (user) {
     return (
-      <div>
-        <h1>Dashboard</h1>
-      </div>
+      <>
+        <Navbar />
+        <Sidebar />
+        <main>
+          <Main />
+        </main>
+        <button onClick={handleLogout}>Logout</button>
+        <Footer />
+      </>
     );
   }
 }

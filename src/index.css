@@ -1,17 +1,426 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@font-face {
+  font-family: "El Messiri";
+  src: url("./fonts/ElMessiri-Regular.woff") format("woff"),
+    url("./fonts/ElMessiri-Regular.woff2") format("woff2");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "'El Messiri'";
+  src: url("./fonts/ElMessiri-Medium.woff") format("woff"),
+    url("./fonts/ElMessiri-Medium.woff2") format("woff2");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("./fonts/Inter-SemiBold.woff2") format("woff2"),
+    url("./fonts/Inter-SemiBold.woff") format("woff");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("./fonts/Inter-Regular.woff2") format("woff2"),
+    url("./fonts/Inter-Regular.woff") format("woff");
+  font-weight: 400;
+}
+
+/* Variables */
+:root {
+  --background: #252829;
+  --white: white;
+  --blue: #57bbd7;
+  --green: #77bc82;
+  --grey: #b8b9bb;
+  --beige: #fff3f3;
+  --black-lighter: #373737;
+
+  --main-font: "Inter";
+  --secondary-font: "El Messiri";
+
+  --headline: 6rem;
+  --h2: 2.5rem;
+  --h3: 1.2rem;
+  --body: 1rem;
+  --small: 0.875rem;
+
+  --padding: 72px;
+  --max-width: 1350px;
+  --margin-end: 100px;
+
+  --responsive-margin: auto 3vw var(--margin-end) 3vw;
+  --responsive-padding: 0 3vw;
+
+  --loading-grey: #4b4b4b;
+
+  color-scheme: dark;
+}
+
+body {
+  font-family: var(--main-font), sans-serif;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+  background-color: var(--background);
+  color: var(--white);
+}
+
+img {
+  -webkit-user-select: none;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+}
+
+input {
+  font-family: var(--main-font);
+}
+
+.sr-only {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.sr-only-focusable:active,
+.sr-only-focusable:focus {
+  clip: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  position: static;
+  white-space: normal;
+  width: auto;
+}
+
+/* Text styles */
+h1 {
+  font-family: var(--secondary-font), serif;
+  font-size: var(--headline);
+  margin: 0;
+  font-weight: 400;
+}
+
+.body-bold {
+  font-weight: 600;
+  font-size: var(--body);
+}
+
+h2 {
+  font-family: var(--secondary-font), serif;
+  font-size: var(--h2);
+  margin: 0;
+  font-weight: 400;
+}
+
+.display2 {
+  font-family: var(--secondary-font), serif !important;
+  font-size: var(--h2) !important;
+}
+
+h3 {
+  font-size: var(--h3);
+  font-weight: 400;
+  margin: 0;
+}
+
+.display3 {
+  font-size: var(--h3);
+  font-weight: 600 !important;
+}
+
+p {
+  font-size: var(--body);
+  margin: 0;
+}
+
+small,
+.small {
+  font-size: var(--small);
+}
+
+/* Button */
+.btn {
+  color: var(--blue);
+  font-weight: 600;
+  font-size: var(--body);
+  display: inline-flex;
+  padding: 12px 38px;
+  border: solid 2px var(--blue);
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: 0.3s;
+  background-color: transparent;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.btn:active {
+  transform: scale(0.95);
+}
+
+.btn:hover,
+.nav-active.btn {
+  background-color: var(--blue);
+  color: white;
+}
+
+
+nav li {
+  list-style: none;
+}
+
+nav a {
+  text-decoration: none;
+  color: white;
+}
+
+.link {
+  position: relative;
+  transition: 0.2s;
+}
+
+.link::after {
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  content: "";
+  width: 0%;
+  height: 2px;
+  background-color: var(--blue);
+  transition: 0.2s;
+}
+
+.link:hover::after {
+  width: 100%;
+}
+
+.link:hover {
+  color: var(--blue);
+}
+
+
+/* Field */
+
+.field {
+  margin-bottom: 40px;
+}
+
+.form__infos {
+  margin-bottom: 32px;
+}
+
+.error {
+  margin-bottom: 16px;
+}
+
+.field label {
+  margin-bottom: 8px;
+  display: block;
+}
+
+.field input,
+.field select {
+  border: none;
+  border-radius: 2px;
+  background-color: var(--black-lighter);
+  height: 56px;
+  width: 100%;
+  padding: 16px;
+  font-size: 1rem;
+}
+
+.field input:focus {
+  outline-color: var(--blue);
+}
+
+.field input::-webkit-input-placeholder {
+  font-size: 16px;
+  color: var(--grey);
+}
+
+.field input::-moz-placeholder {
+  font-size: 16px;
+  color: var(--grey);
+}
+
+.field input:-ms-input-placeholder {
+  font-size: 16px;
+  color: var(--grey);
+}
+
+.field input::-ms-input-placeholder {
+  font-size: 16px;
+  color: var(--grey);
+}
+
+.field input::placeholder {
+  font-size: 16px;
+  color: var(--grey);
+}
+
+.field .caption {
+  margin-top: 8px;
+  color: var(--grey);
+}
+
+select {
+  width: 100%;
+  border: none;
+  padding: 16px;
+  border-radius: 2px;
+}
+
+input[type="date"] {
+  color: var(--grey);
+  /* Selectionner changer color */
+}
+
+select {
+  font-size: 1rem;
+  color: var(--grey);
+}
+
+select:focus {
+  outline-color: var(--blue);
+}
+
+.field small {
+  display: block;
+  color: red;
+  margin-top: 8px;
+}
+
+.field.error input,
+.field.error select {
+  border: 1px solid red;
+}
+
+.error {
+  color: red;
+  margin-top: 8px;
+  margin-bottom: 24px;
+}
+
+/* Form login */
+
+.login__container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login__form {
+  width: 350px;
+  background-color: var(--background);
+  padding: 40px 32px;
+  border-radius: 2px;
+}
+
+.img__login {
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  margin-bottom: 32px;
+  background-color: var(--background);
+  -webkit-filter: blur(5px) brightness(0.5);
+  filter: blur(5px) brightness(0.5);
+  transition: transform 0.3s ease-in-out, -webkit-filter 0.7s ease-in-out;
+  transition: transform 0.5s ease-in-out, -webkit-filter 0.7s ease-in-out;
+  transition: filter 0.7s ease-in-out, transform 0.5s ease-in-out;
+  transition: filter 0.7s ease-in-out, transform 0.5s ease-in-out, -webkit-filter 0.7s ease-in-out;
+}
+
+.login__form .btn {
+  width: 100%;
+}
+
+.login__form .btn:hover+.img__login {
+  -webkit-filter: brightness(1);
+  filter: blur(5px) brightness(1);
+  transform: scale(1.1);
+  transition: transform 0.3s ease-in-out, -webkit-filter 0.7s ease-in-out;
+  transition: transform 0.5s ease-in-out, -webkit-filter 0.7s ease-in-out;
+  transition: filter 0.7s ease-in-out, transform 0.5s ease-in-out;
+  transition: filter 0.7s ease-in-out, transform 0.5s ease-in-out, -webkit-filter 0.7s ease-in-out;
+}
+
+
+/*Sidebar*/
+.sidebar {
+  height: 100vh;
+  width: 30vw;
+  background-color: var(--black-lighter);
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  justify-content: space-between;
+}
+
+.sidebar .sidebar_part2 ul {
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+  padding: 0;
+  width: 20vw;
+}
+
+.sidebar .sidebar_part2 ul li {
+  padding: 10px 13px;
+  font-size: var(--h3);
+  transition: ease 0.3s;
+  border-radius: 5px;
+}
+
+.sidebar .sidebar_part2 ul li:hover {
+  background-color: var(--beige);
+  color: var(--background);
+  transition: ease 0.3s;
+}
+
+.sidebar .sidebar_part3 {
+  margin-bottom: 5vh;
+  padding-left: 13px;
+  font-size: var(--h3);
+}
+
+/* Réservations */
+.resa__table {
+  width: 100%;
+  /* border-collapse: collapse; */
+}
+
+.resa__table th,
+.resa__table td {
+  padding: 4px;
+  background-color: var(--black-lighter);
+  text-align: center;
 }

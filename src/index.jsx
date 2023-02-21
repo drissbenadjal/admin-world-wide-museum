@@ -9,12 +9,11 @@ import {
 import "./index.css";
 
 //PAGES
-import Login from "./pages/Login";
-import Dashboard from "./pages/Dashboard";
+import { Dashboard } from "./pages/Dashboard";
 
 const router = createBrowserRouter(
   createRoutesFromElements([
-    <Route path="/" element={<Login />} />,
+    <Route path="/" element={<Dashboard />} />,
     <Route path="/dashboard" element={<Dashboard />} />,
   ])
 );
