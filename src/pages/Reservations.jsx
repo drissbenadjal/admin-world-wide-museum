@@ -1,4 +1,4 @@
-import { ResaTable } from "../ResaTable";
+import { ResaTable } from "../components/ResaTable";
 
 export const Reservations = () => {
     return (

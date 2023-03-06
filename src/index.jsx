@@ -11,14 +11,13 @@ import "./index.css";
 import { AuthContextProvider } from "./Context/AuthContext";
 
 //PAGES
-import { Dashboard } from "./pages/Dashboard";
+import { Dashboard } from "./view/Dashboard";
 
 const router = createBrowserRouter(
   createRoutesFromElements([
     <Route path="/" element={<Dashboard />} />,
     <Route path="/dashboard" element={<Dashboard />} />,
     <Route path="/dashboard/reservations" element={<Dashboard page="reservations" />} />,
-    <Route path="/dashboard/statistiques" element={<Dashboard page="statistiques" />} />,
     <Route path="*" element={<Dashboard page="notfound" />} />,
   ])
 );

@@ -6,8 +6,8 @@ export const ResaTable = () => {
       <thead className="resaTable__head">
         <tr>
           <th>Id</th>
-          <th>Nom</th>
           <th>Prénom</th>
+          <th>Nom</th>
           <th>Place(s)</th>
           <th>Date</th>
           <th>Horaire</th>
@@ -18,8 +18,8 @@ export const ResaTable = () => {
       <tbody className="resaTable__body">
         <tr>
           <td>1</td>
-          <td>Dupont</td>
           <td>Jean</td>
+          <td>Dupont</td>
           <td>2</td>
           <td>24/10/2022</td>
           <td>11:00 - 12:00</td>

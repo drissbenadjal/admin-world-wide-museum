@@ -5,10 +5,9 @@ import { AuthContext } from "../Context/AuthContext";
 
 //images
 import logo from "../images/logo.svg";
-import dashboard from "../images/icons/dashboard.webp";
-import reservations from "../images/icons/tickets.webp";
-import utilisateurs from "../images/icons/utilisateurs.webp";
-import logout from "../images/icons/logout.webp";
+import dashboard from "../images/icons/dashboard.svg";
+import tickets from "../images/icons/tickets.svg";
+import logout from "../images/icons/logout.svg";
 
 export const Sidebar = () => {
 
@@ -32,25 +31,19 @@ export const Sidebar = () => {
                     <li>
                         <Link to={`/dashboard/reservations`}>
                             <div className="link-content">
-                                <img src={reservations} alt="" />
+                                <img src={tickets} alt="" />
                                 <p>Réservations</p>
                             </div>
                         </Link>
                     </li>
-                    <li>
-                        <Link to={`/dashboard/utilisateurs`}>
-                            <div className="link-content">
-                                <img src={utilisateurs} alt="" />
-                                <p>Utilisateurs</p>
-                            </div>
-                        </Link>
-                    </li>
                 </ul>
-                <ul>
+                <ul className="link-secondary">
                     <li>
                         <button onClick={handleLogout}>
-                            <img src={logout} alt="" />
-                            <p>Déconnexion</p>
+                            <div className="link-content">
+                                <img src={logout} alt="" />
+                                <p>Déconnexion</p>
+                            </div>
                         </button>
                     </li>
                 </ul>
