@@ -37,19 +37,8 @@ export const StatsResa = ({ reservations }) => {
     }, [reservations]);
 
     useEffect(() => {
-        //calculer le pourcentage d'augmentation ou de diminution des réservations
-        const pourcentage = Math.round((reservationsThisWeek.length - reservationsLastWeek.length) / reservationsLastWeek.length * 100);
-        //si c'est positif, on affiche un "+" devant le pourcentage et si c'est négatif, on affiche un "-" devant le pourcentage
-        //si c'est NaN ou infinty on met 100%
-        if (isNaN(pourcentage) || !isFinite(pourcentage)) {
-            setPourcentage("+ " + 100);
-        } else {
-            if (pourcentage > 0) {
-                setPourcentage("+ " + pourcentage);
-            } else {
-                setPourcentage(pourcentage);
-            }
-        }
+        console.log(reservationsThisWeek.length);
+        console.log(reservationsLastWeek.length);
     }, [reservationsThisWeek, reservationsLastWeek]);
 
 
