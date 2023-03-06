@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import { AuthContext } from "../Context/AuthContext";
 
@@ -13,6 +13,8 @@ export const Sidebar = () => {
 
     const { user, handleLogin, handleLogout } = useContext(AuthContext);
 
+    const location = useLocation();
+
     return (
         <>
             <nav className="sidebar">
@@ -21,7 +23,7 @@ export const Sidebar = () => {
                 </Link>
                 <ul className="link-main">
                     <li>
-                        <Link to={`/dashboard`}>
+                        <Link to={`/dashboard`} className={location.pathname === "/dashboard" || location.pathname === "/" ? "active" : ""}>
                             <div className="link-content">
                                 <img src={dashboard} alt="" />
                                 <p>Dashboard</p>
@@ -29,7 +31,7 @@ export const Sidebar = () => {
                         </Link>
                     </li>
                     <li>
-                        <Link to={`/dashboard/reservations`}>
+                        <Link to={`/dashboard/reservations`} className={location.pathname === "/dashboard/reservations" ? "active" : ""}>
                             <div className="link-content">
                                 <img src={tickets} alt="" />
                                 <p>Réservations</p>
@@ -41,7 +43,7 @@ export const Sidebar = () => {
                     <li>
                         <button onClick={handleLogout}>
                             <div className="link-content">
-                                <img src={logout} alt="" />
+                                <img className="icons" src={logout} alt="" />
                                 <p>Déconnexion</p>
                             </div>
                         </button>
