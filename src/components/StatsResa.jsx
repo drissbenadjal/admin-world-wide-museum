@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 
 export const StatsResa = ({ reservations }) => {
 
+    const resa = reservations;
     const [reservationsThisWeek, setReservationsThisWeek] = useState([]);
     const [reservationsLastWeek, setReservationsLastWeek] = useState([]);
     const [pourcentage, setPourcentage] = useState(0);
 
     useEffect(() => {
-        if (reservations.length === 0) {
+        if (resa.length === 0) {
             return;
         }
         const now = new Date();
@@ -18,28 +19,13 @@ export const StatsResa = ({ reservations }) => {
         const sunday = new Date(now.setDate(now.getDate() - now.getDay() + 7));
 
         // filtrer les réservations de la semaine en cours
-        reservations.filter((resa) => {
-            const resaDate = new Date(resa.date_reservation);
+        resa.filter((r) => {
+            const resaDate = new Date(r.date_reservation);
             if (resaDate >= monday && resaDate <= sunday) {
-                setReservationsThisWeek((reservationsThisWeek) => [...reservationsThisWeek, resa]);
+                setReservationsThisWeek((reservationsThisWeek) => [...reservationsThisWeek, r]);
             }
         });
-
-        const lastMonday = new Date(now.setDate(now.getDate() - now.getDay() - 6));
-        const lastSunday = new Date(now.setDate(now.getDate() - now.getDay() + 0));
-
-        reservations.filter((resa) => {
-            const resaDate = new Date(resa.date_reservation);
-            if (resaDate >= lastMonday && resaDate <= lastSunday) {
-                setReservationsLastWeek((reservationsLastWeek) => [...reservationsLastWeek, resa]);
-            }
-        });
-    }, [reservations]);
-
-    useEffect(() => {
-        console.log(reservationsThisWeek.length);
-        console.log(reservationsLastWeek.length);
-    }, [reservationsThisWeek, reservationsLastWeek]);
+    }, [resa]);
 
 
     return (
