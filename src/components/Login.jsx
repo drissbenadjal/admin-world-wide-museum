@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 //images
 import logo from "../images/logo.svg";
 
-export const Login = () => {
+export const Login = ({ login }) => {
 
   const pathImg = './images/tableaux/';
   const extImg = '.webp';
@@ -12,11 +12,15 @@ export const Login = () => {
   const randomImg = listImg[Math.floor(Math.random() * listImg.length)];
   let img = pathImg + randomImg + extImg;
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    login();
+  };
 
   return (
     <>
       <div className="login__container">
-        <form className="login__form">
+        <form className="login__form" onSubmit={handleSubmit}>
           <div className="form">
             <div className="field">
               <label className="display3" htmlFor="login">

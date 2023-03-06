@@ -41,6 +41,7 @@
   --grey: #b8b9bb;
   --beige: #fff3f3;
   --black-lighter: #373737;
+  --black-lighter-2: #4F4F4F;
 
   --main-font: "Inter";
   --secondary-font: "El Messiri";
@@ -323,6 +324,24 @@ select:focus {
   margin-bottom: 24px;
 }
 
+.container-all {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: 100vh;
+  width: 100%;
+}
+
+/* Main */
+main {
+  display: flex;
+  flex-direction: row;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 100vh;
+}
+
 /* Form login */
 
 .login__container {
@@ -374,99 +393,112 @@ select:focus {
 
 
 /*Sidebar*/
+
 .sidebar {
-  display: flex;
-  flex-direction: row;
-}
-
-.sidebar .sidebar_contain {
-  display: flex;
-  flex-direction: column;
-  width: 14vw;
+  width: 250px;
   height: 100vh;
-  position: fixed;
-  background-color: var(--black-lighter);
-  z-index: 2;
-  padding: 4vh 5vh;
-  align-items: flex-start;
-  justify-content: space-around;
-  border-right: 2px solid var(--background);
-}
-
-.sidebar .sidebar_contain .liennav {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  background-color: var(--black-lighter);
+  padding: 30px 15px;
+  gap: 30px;
 }
 
-.sidebar .sidebar_contain .logonav {
+.sidebar .link_logo {
   width: 100%;
   display: flex;
-  position: relative;
-  bottom: 10%;
-  left: 10%;
+  justify-content: center;
 }
 
-.sidebar .sidebar_contain .logonav img {
-  height: 100px;
+.sidebar .logo {
+  height: 70px;
+  width: 70px;
+  -o-object-fit: contain;
+  object-fit: contain;
 }
 
-.sidebar_contain .liennav ul {
+.sidebar ul.link-main {
+  width: 100%;
   list-style: none;
   display: flex;
-  gap: 1vh;
   flex-direction: column;
+  gap: 20px;
+  margin: 0;
   padding: 0;
 }
 
-.sidebar_contain .liennav ul a {
-  text-decoration: none;
-  transition: ease 0.3s;
-  width: 7vw;
-  padding: 1vh 3vh;
-  color: var(--beige);
-  border-radius: 10px;
+.sidebar ul.link-main li {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+  border-radius: 5px;
 }
 
-.sidebar_contain .liennav ul a:hover {
-  transition: ease 0.3s;
+
+.sidebar ul.link-main li a {
+  color: var(--white);
+  font-size: 1.2rem;
+  font-weight: 500;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  transition: color 0.3s ease-in-out;
+}
+
+.sidebar ul.link-main li a:hover {
+  color: var(--black-lighter-2);
+}
+
+.sidebar ul.link-main li a::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  width: 0%;
+  height: 100%;
+  background-color: transparent;
+  border-radius: 5px;
+  transition: width 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.sidebar ul.link-main li a:hover::before {
+  width: 100%;
   background-color: var(--beige);
-  border-radius: 10px;
-  color: var(--black-lighter);
-  width: 80%;
 }
 
-.sidebar_contain .liennav ul a li {
+.sidebar ul.link-main li a .link-content {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 2;
   display: flex;
-  flex-direction: row;
-  gap: 15px;
   align-items: center;
-  font-size: 1.1em;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 0 10px;
 }
 
-.sidebar_contain .liennav ul a li img {
-  height: 35px;
+.sidebar ul.link-main li a .link-content img {
+  height: 30px;
+  width: 30px;
+  -o-object-fit: contain;
+  object-fit: contain;
 }
 
-.logout button {
-  display: flex;
-  flex-direction: row;
-  gap: 15px;
-  color: var(--beige);
-  align-items: center;
-  text-decoration: none;
-  font-size: 1.1em;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-.logout button p {
+.sidebar ul li button p {
   position: relative;
   text-decoration: none;
   transition: 0.3s;
 }
 
-.logout button p::after {
+.sidebar ul li button p::after {
   position: absolute;
   content: "";
   top: 100%;
@@ -479,24 +511,90 @@ select:focus {
   transition: transform 0.5s;
 }
 
-.logout button p:hover::after {
+.sidebar ul li button p:hover::after {
   transform: scaleX(1);
   transform-origin: left;
 }
 
-.logout button img {
+.sidebar ul li button img {
   height: 30px;
 }
 
 /* Réservations */
-.resa__table {
+.resaTable {
   width: 100%;
-  /* border-collapse: collapse; */
+  border-spacing: 0;
 }
 
-.resa__table th,
-.resa__table td {
-  padding: 4px;
+.resaTable__head th {
+  color: var(--grey);
+  font-weight: 400;
   background-color: var(--black-lighter);
-  text-align: center;
+}
+
+.resaTable th,
+.resaTable td {
+  padding: 16px;
+  text-align: left;
+  white-space: nowrap;
+
+
+}
+
+.resaTable th {
+  border-top: 2px solid var(--black-lighter-2);
+  border-bottom: 2px solid var(--black-lighter-2);
+}
+
+.resaTable td {
+  border-bottom: 2px solid var(--black-lighter-2);
+}
+
+.resaTable td:first-child {
+  border-left: 2px solid var(--black-lighter-2);
+}
+
+.resaTable td:last-child {
+  border-right: 2px solid var(--black-lighter-2);
+}
+
+/* top-left border-radius */
+.resaTable tr:first-child th:first-child {
+  border-top-left-radius: 4px;
+  border-left: 2px solid var(--black-lighter-2);
+}
+
+/* top-right border-radius */
+.resaTable tr:first-child th:last-child {
+  border-top-right-radius: 4px;
+  border-right: 2px solid var(--black-lighter-2);
+}
+
+/* bottom-left border-radius */
+.resaTable tr:last-child td:first-child {
+  border-bottom-left-radius: 4px;
+}
+
+/* bottom-right border-radius */
+.resaTable tr:last-child td:last-child {
+  border-bottom-right-radius: 4px;
+}
+
+.resaTable__dateResa {
+  color: var(--grey);
+}
+
+.resaTable__delete a::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.resaTable__delete:hover {
+  background-color: var(--black-lighter);
+}
+
+.resaTable__delete:hover path {
+  fill: var(--white);
 }

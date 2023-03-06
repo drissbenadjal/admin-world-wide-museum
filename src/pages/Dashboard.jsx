@@ -1,42 +1,72 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+
+import { AuthContext } from "../Context/AuthContext";
 
 //pages
 import { Login } from "../components/Login";
 
 //components
-import { Navbar } from "../components/Navbar";
 import { Sidebar } from "../components/Sidebar";
-import { Footer } from "../components/Footer";
 import { Main } from "../components/Dashboard/Main";
+import { Reservations } from "../components/Dashboard/Reservations";
+import { Statistiques } from "../components/Dashboard/Statistiques";
+import { NotFound } from "../components/Dashboard/NotFound";
 
-export const Dashboard = () => {
-  const [user, setUser] = useState(false);
+export const Dashboard = ({ page }) => {
 
-  const handleLogin = () => {
-    setUser(true);
-  };
-
-  const handleLogout = () => {
-    setUser(false);
-  };
+  const { user, handleLogin, handleLogout } = useContext(AuthContext);
 
   if (!user) {
     return (
-      <Login />
+      <Login login={() => handleLogin()} />
     );
   }
 
   if (user) {
-    return (
-      <>
-        <Navbar />
-        <Sidebar />
-        <main>
-          <Main />
-        </main>
-        <button onClick={handleLogout}>Logout</button>
-        <Footer />
-      </>
-    );
+    if (page === "reservation") {
+      return (
+        <>
+          <div className="container-all">
+            <Sidebar />
+            <main>
+              <Reservations />
+            </main>
+          </div>
+        </>
+      );
+    } if (page === "statistiques") {
+      return (
+        <>
+          <div className="container-all">
+            <Sidebar />
+            <main>
+              <Statistiques />
+            </main>
+          </div>
+        </>
+      );
+    } if (page === "notfound") {
+      return (
+        <>
+          <div className="container-all">
+            <Sidebar />
+            <main>
+              <NotFound />
+            </main>
+          </div>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <div className="container-all">
+            <Sidebar />
+            <main>
+              <Main />
+            </main>
+          </div>
+        </>
+      );
+    }
   }
 }
