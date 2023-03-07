@@ -41,7 +41,7 @@
   --grey: #b8b9bb;
   --beige: #fff3f3;
   --black-lighter: #373737;
-  --black-lighter-2: #4F4F4F;
+  --black-lighter-2: #4f4f4f;
 
   --main-font: "Inter";
   --secondary-font: "El Messiri";
@@ -188,7 +188,6 @@ small,
   color: white;
 }
 
-
 nav li {
   list-style: none;
 }
@@ -221,7 +220,6 @@ nav a {
 .link:hover {
   color: var(--blue);
 }
-
 
 /* Field */
 
@@ -419,23 +417,24 @@ main {
   transition: transform 0.3s ease-in-out, -webkit-filter 0.7s ease-in-out;
   transition: transform 0.5s ease-in-out, -webkit-filter 0.7s ease-in-out;
   transition: filter 0.7s ease-in-out, transform 0.5s ease-in-out;
-  transition: filter 0.7s ease-in-out, transform 0.5s ease-in-out, -webkit-filter 0.7s ease-in-out;
+  transition: filter 0.7s ease-in-out, transform 0.5s ease-in-out,
+    -webkit-filter 0.7s ease-in-out;
 }
 
 .login__form .btn {
   width: 100%;
 }
 
-.login__form .btn:hover+.img__login {
+.login__form .btn:hover + .img__login {
   -webkit-filter: brightness(1);
   filter: blur(5px) brightness(1);
   transform: scale(1.1);
   transition: transform 0.3s ease-in-out, -webkit-filter 0.7s ease-in-out;
   transition: transform 0.5s ease-in-out, -webkit-filter 0.7s ease-in-out;
   transition: filter 0.7s ease-in-out, transform 0.5s ease-in-out;
-  transition: filter 0.7s ease-in-out, transform 0.5s ease-in-out, -webkit-filter 0.7s ease-in-out;
+  transition: filter 0.7s ease-in-out, transform 0.5s ease-in-out,
+    -webkit-filter 0.7s ease-in-out;
 }
-
 
 /*Sidebar*/
 
@@ -484,7 +483,6 @@ main {
   height: 50px;
   border-radius: 5px;
 }
-
 
 .sidebar ul.link-main li a {
   color: var(--white);
@@ -653,7 +651,8 @@ main {
   object-fit: contain;
 }
 
-/* Réservations */
+/* Réservations 
+
 .resaTable {
   width: 100%;
   border-spacing: 0;
@@ -670,8 +669,6 @@ main {
   padding: 16px;
   text-align: left;
   white-space: nowrap;
-
-
 }
 
 .resaTable th {
@@ -690,25 +687,29 @@ main {
 .resaTable td:last-child {
   border-right: 2px solid var(--black-lighter-2);
 }
+*/
 
-/* top-left border-radius */
+/* top-left border-radius 
 .resaTable tr:first-child th:first-child {
   border-top-left-radius: 4px;
   border-left: 2px solid var(--black-lighter-2);
 }
+*/
 
-/* top-right border-radius */
+/* top-right border-radius 
 .resaTable tr:first-child th:last-child {
   border-top-right-radius: 4px;
   border-right: 2px solid var(--black-lighter-2);
 }
+*/
 
-/* bottom-left border-radius */
+/* bottom-left border-radius 
 .resaTable tr:last-child td:first-child {
   border-bottom-left-radius: 4px;
 }
+*/
 
-/* bottom-right border-radius */
+/* bottom-right border-radius 
 .resaTable tr:last-child td:last-child {
   border-bottom-right-radius: 4px;
 }
@@ -740,6 +741,74 @@ main {
 
 .resaTable__delete:hover path {
   fill: var(--white);
+}
+*/
+
+table {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  table-layout: fixed;
+}
+
+table tr {
+  border: 1px solid #ddd;
+  padding: 0.35em;
+}
+
+table th,
+table td {
+  padding: 0.625em;
+  text-align: center;
+}
+
+table th {
+  font-size: 0.85em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+@media screen and (max-width: 1050px) {
+  table {
+    border: 0;
+  }
+
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+
+  table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: 0.625em;
+  }
+
+  table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: 0.8em;
+    text-align: right;
+  }
+
+  table td::before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  table td:last-child {
+    border-bottom: 0;
+  }
 }
 
 /* Stat Card */
