@@ -53,30 +53,34 @@ export const ResaTable = ({ reservations }) => {
                 {r.id_reservation}
               </td>
               <td scope="row" data-label="Prénom">
-                {r.prenom_reservation.length > 10
-                  ? r.prenom_reservation.substring(0, 10) + "..."
-                  : r.prenom_reservation}
+                <p>
+                  {r.prenom_reservation.length > 10
+                    ? r.prenom_reservation.substring(0, 10) + "..."
+                    : r.prenom_reservation}
+                </p>
               </td>
               <td scope="row" data-label="Nom">
-                {r.nom_reservation.length > 10
-                  ? r.nom_reservation.substring(0, 10) + "..."
-                  : r.nom_reservation}
+                <p>
+                  {r.nom_reservation.length > 10
+                    ? r.nom_reservation.substring(0, 10) + "..."
+                    : r.nom_reservation}
+                </p>
               </td>
               <td scope="row" data-label="Place(s)">
-                {r.place_reservation}
+                <p>{r.place_reservation}</p>
               </td>
               <td scope="row" data-label="Date">
-                {date_reservation}
+                <p>{date_reservation}</p>
               </td>
               <td scope="row" data-label="Horaire">
-                {hour_reservation}
+                <p>{hour_reservation}</p>
               </td>
               <td
                 scope="row"
                 data-label="Date de réservation"
                 className="resaTable__dateResa"
               >
-                {date_creation_reservation}
+                <p>{date_creation_reservation}</p>
               </td>
               <td scope="row" className="resaTable__delete">
                 <Link>
