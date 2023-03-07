@@ -342,6 +342,12 @@ main {
   width: 100%;
 }
 
+@media screen and (max-width: 400px) {
+  main {
+    padding: 20px 16px;
+  }
+}
+
 .loader {
   position: absolute;
   top: 0;
@@ -448,6 +454,17 @@ main {
   background-color: var(--black-lighter);
   padding: 30px 15px;
   gap: 30px;
+}
+
+@media screen and (max-width: 750px) {
+  .sidebar {
+    opacity: 0;
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+  }
 }
 
 .sidebar .link_logo {
@@ -653,17 +670,20 @@ main {
 
 /* Réservations 
 
+OK
 .resaTable {
   width: 100%;
   border-spacing: 0;
 }
 
+OK
 .resaTable__head th {
   color: var(--grey);
   font-weight: 400;
   background-color: var(--black-lighter);
 }
 
+OK
 .resaTable th,
 .resaTable td {
   padding: 16px;
@@ -671,25 +691,32 @@ main {
   white-space: nowrap;
 }
 
+OK
 .resaTable th {
   border-top: 2px solid var(--black-lighter-2);
   border-bottom: 2px solid var(--black-lighter-2);
 }
 
+OK
 .resaTable td {
   border-bottom: 2px solid var(--black-lighter-2);
 }
 
+OK
 .resaTable td:first-child {
   border-left: 2px solid var(--black-lighter-2);
 }
 
+
+OK
 .resaTable td:last-child {
   border-right: 2px solid var(--black-lighter-2);
 }
 */
 
-/* top-left border-radius 
+/* 
+OK
+top-left border-radius 
 .resaTable tr:first-child th:first-child {
   border-top-left-radius: 4px;
   border-left: 2px solid var(--black-lighter-2);
@@ -744,38 +771,107 @@ main {
 }
 */
 
-table {
-  border: 1px solid #ccc;
-  border-collapse: collapse;
-  margin: 0;
-  padding: 0;
+.resaTable {
   width: 100%;
-  table-layout: fixed;
+  border-spacing: 0;
 }
 
-table tr {
-  border: 1px solid #ddd;
+.resaTable__head th {
+  color: var(--grey);
+  font-weight: 400;
+  background-color: var(--black-lighter);
+}
+
+.resaTable tr {
+  border: 1px solid var(--black-lighter-2);
   padding: 0.35em;
 }
 
-table th,
-table td {
-  padding: 0.625em;
-  text-align: center;
+.resaTable th,
+.resaTable td {
+  padding: 16px;
+  text-align: left;
+  white-space: nowrap;
 }
 
-table th {
-  font-size: 0.85em;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+.resaTable td {
+  border-bottom: 2px solid var(--black-lighter-2);
+}
+
+.resaTable td:first-child {
+  border-left: 2px solid var(--black-lighter-2);
+}
+
+.resaTable td:last-child {
+  border-right: 2px solid var(--black-lighter-2);
+}
+
+.resaTable th {
+  border-top: 2px solid var(--black-lighter-2);
+  border-bottom: 2px solid var(--black-lighter-2);
+}
+
+.resaTable th:first-child {
+  border-left: 2px solid var(--black-lighter-2);
+  border-top-left-radius: 4px;
+}
+
+/*
+.resaTable th:last-child {
+  border-left: 2px solid var(--black-lighter-2);
+  border-bottom-left-radius: 4px;
+}
+*/
+
+.resaTable tr:first-child th:last-child {
+  border-top-right-radius: 4px;
+  border-right: 2px solid var(--black-lighter-2);
+}
+
+.resaTable tr:last-child td:first-child {
+  border-top-right-radius: 4px;
+  border-left: 2px solid var(--black-lighter-2);
+}
+
+.resaTable tr:last-child td:last-child {
+  border-bottom-right-radius: 4px;
+}
+
+.resaTable__dateResa {
+  color: var(--grey);
+}
+
+.resaTable__delete {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.resaTable__delete a::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+.resaTable__delete:hover {
+  background-color: var(--black-lighter);
+}
+
+.resaTable__delete:hover path {
+  fill: var(--white);
 }
 
 @media screen and (max-width: 1050px) {
-  table {
+  .resaTable {
     border: 0;
   }
 
-  table thead {
+  .resaTable thead {
     border: none;
     clip: rect(0 0 0 0);
     height: 1px;
@@ -786,28 +882,44 @@ table th {
     width: 1px;
   }
 
-  table tr {
-    border-bottom: 3px solid #ddd;
+  .resaTable tr {
     display: block;
-    margin-bottom: 0.625em;
+    margin-bottom: 10px;
   }
 
-  table td {
-    border-bottom: 1px solid #ddd;
+  .resaTable td {
     display: block;
     font-size: 0.8em;
     text-align: right;
   }
 
-  table td::before {
+  .resaTable td::before {
     content: attr(data-label);
     float: left;
-    font-weight: bold;
-    text-transform: uppercase;
   }
 
-  table td:last-child {
+  .resaTable td:last-child {
     border-bottom: 0;
+  }
+
+  .resaTable td:last-child {
+    border: none;
+  }
+
+  .resaTable td:first-child {
+    border-left: none;
+  }
+
+  .resaTable__delete:hover {
+    background: transparent;
+  }
+
+  .resaTable td a:hover {
+    background: var(--black-lighter-2);
+    display: inline-block;
+    width: fit-content;
+    height: 100%;
+    text-align: right;
   }
 }
 
@@ -841,4 +953,11 @@ table th {
 
 .statCard__label {
   color: var(--grey);
+}
+
+@media screen and (max-width: 550px) {
+  .statCards {
+    flex-direction: column;
+    gap: 16px;
+  }
 }
