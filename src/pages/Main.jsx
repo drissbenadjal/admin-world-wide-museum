@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
+
+import { AuthContext } from "../Context/AuthContext";
 
 import { Loader } from "../components/Loader";
 import { StatsResa } from "../components/StatsResa";
 import { ResaTable } from "../components/ResaTable";
 
 export const Main = () => {
+
+    const { user } = useContext(AuthContext);
 
     const [loaded, setLoaded] = useState(false);
     const [reservations, setReservations] = useState([]);
@@ -39,7 +43,7 @@ export const Main = () => {
             {
                 !loaded && <Loader />
             }
-            <h1>Bienvenue admin</h1>
+            <h1>Bienvenue {user.pseudo}</h1>
             <StatsResa reservations={reservations} />
             <ResaTable reservations={reservations} />
         </>
