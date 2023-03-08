@@ -102,6 +102,7 @@ const AuthContextProvider = ({ children }) => {
         setLoged(false);
         setUser([]);
         removeCookie("token");
+        window.location.href = "/";
     };
 
     return (
