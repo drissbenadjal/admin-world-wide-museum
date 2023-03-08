@@ -88,7 +88,7 @@ const AuthContextProvider = ({ children }) => {
                     setLoged(false);
                     setUser([]);
                     removeCookie("token");
-                    setErrorMessage('Identifiants incorrects');
+                    setErrorMessage('Identifiants ou mot de passe incorrect');
                 }
             })
             .catch((error) => {
