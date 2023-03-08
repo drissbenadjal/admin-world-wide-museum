@@ -60,7 +60,10 @@ export const StatsResa = ({ reservations }) => {
 
   useEffect(() => {
     const diff = reservationsThisWeek.length - reservationsLastWeek.length;
-    const pourcentage = Math.round((diff / reservationsLastWeek.length) * 100);
+    let pourcentage = Math.round((diff / reservationsLastWeek.length) * 100);
+    if (isNaN(pourcentage)) {
+      pourcentage = 0;
+    }
     setPourcentage(pourcentage);
   }, [reservationsThisWeek, reservationsLastWeek]);
 

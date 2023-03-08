@@ -18,7 +18,7 @@ export const Main = () => {
     const [loaded, setLoaded] = useState(false);
     const [reservations, setReservations] = useState([]);
 
-    const fetchResa = async () => {
+    const fetchResa = () => {
         fetch("https://benadjal.butmmi.o2switch.site/api_resa_expo/reservations/",
             {
                 method: "GET",
@@ -49,7 +49,7 @@ export const Main = () => {
             }
             <h1>Bienvenue {user.pseudo}</h1>
             <StatsResa reservations={reservations} />
-            <ResaTable reservations={reservations} />
+            <ResaTable reservations={reservations} fetchResa={() => fetchResa()} />
         </>
     );
 }

@@ -1,7 +1,33 @@
-// import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useRef } from "react";
+import { getCookie } from '../utils/cookieUtils';
 
-export const ResaTable = ({ reservations }) => {
+export const ResaTable = ({ reservations, fetchResa }) => {
+
+  const handleDelete = (e) => {
+    e.preventDefault();
+    fetch("https://benadjal.butmmi.o2switch.site/api_resa_expo/reservations/",
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          id_reservation: e.target.value,
+          token: getCookie("token"),
+        }),
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        if (data.status === "success") {
+          fetchResa();
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
   return (
     <table className="resaTable">
       <thead className="resaTable__head">
@@ -83,7 +109,7 @@ export const ResaTable = ({ reservations }) => {
                 <p>{date_creation_reservation}</p>
               </td>
               <td scope="row" className="resaTable__delete">
-                <Link>
+                <button onClick={handleDelete} value={r.id_reservation}>
                   <svg
                     width="24"
                     height="24"
@@ -117,12 +143,12 @@ export const ResaTable = ({ reservations }) => {
                       </g>
                     </g>
                   </svg>
-                </Link>
+                </button>
               </td>
             </tr>
           );
         })}
       </tbody>
-    </table>
+    </table >
   );
 };
