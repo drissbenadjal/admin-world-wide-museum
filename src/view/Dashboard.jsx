@@ -23,9 +23,17 @@ export const Dashboard = ({ page }) => {
   }
 
   if (!loged) {
-    return (
-      <Login login={(pseudo, password) => handleLogin(pseudo, password)} />
-    )
+    if (page === "notfound") {
+      return (
+        <>
+          <NotFound />
+        </>
+      );
+    } else {
+      return (
+        <Login login={(pseudo, password) => handleLogin(pseudo, password)} />
+      )
+    }
   }
 
   if (loged) {
