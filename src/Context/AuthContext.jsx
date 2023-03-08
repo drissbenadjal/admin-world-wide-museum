@@ -1,5 +1,4 @@
 import React, { createContext, useState, useEffect } from 'react';
-
 import { addCookie, getCookie, removeCookie } from '../utils/cookieUtils';
 
 const AuthContext = createContext();

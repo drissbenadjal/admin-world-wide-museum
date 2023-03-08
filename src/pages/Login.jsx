@@ -23,6 +23,7 @@ export const Login = ({ login }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     login(loginRef.current.value, passwordRef.current.value);
+    window.location.href = "/";
   };
 
   return (
