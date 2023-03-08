@@ -64,6 +64,9 @@ export const StatsResa = ({ reservations }) => {
     if (isNaN(pourcentage)) {
       pourcentage = 0;
     }
+    if (Infinity === pourcentage) {
+      pourcentage = 100;
+    }
     setPourcentage(pourcentage);
   }, [reservationsThisWeek, reservationsLastWeek]);
 
