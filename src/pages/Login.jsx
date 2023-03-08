@@ -1,10 +1,14 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../Context/AuthContext";
 
 //images
 import logo from "../images/logo.svg";
 
+
 export const Login = ({ login }) => {
+
+  const { errorMessage } = useContext(AuthContext);
 
   const pathImg = './images/tableaux/';
   const extImg = '.webp';
@@ -50,8 +54,12 @@ export const Login = ({ login }) => {
                 placeholder="Veuillez saisir votre mot de passe"
                 ref={passwordRef}
               />
-              <small></small>
             </div>
+            <small>
+              {
+                errorMessage && <p className="error">{errorMessage}</p>
+              }
+            </small>
           </div>
           <input
             type="submit"

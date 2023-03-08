@@ -7,6 +7,7 @@ const AuthContextProvider = ({ children }) => {
     const [loadedAuth, setLoadedAuth] = useState(false);
     const [user, setUser] = useState([]);
     const [loged, setLoged] = useState();
+    const [errorMessage, setErrorMessage] = useState(false);
 
     const verifyToken = async (token) => {
         fetch("https://benadjal.butmmi.o2switch.site/api_resa_expo/verify/", {
@@ -59,6 +60,7 @@ const AuthContextProvider = ({ children }) => {
     }, []);
 
     const handleLogin = async (pseudo, password) => {
+
         fetch("https://benadjal.butmmi.o2switch.site/api_resa_expo/connexion/", {
             method: "POST",
             headers: {
@@ -84,14 +86,14 @@ const AuthContextProvider = ({ children }) => {
                     setLoged(false);
                     setUser([]);
                     localStorage.removeItem("token");
+                    setErrorMessage('Identifiants incorrects');
                 }
-                setLoadedAuth(true);
             })
             .catch((error) => {
                 setLoged(false);
                 setUser([]);
                 localStorage.removeItem("token");
-                setLoadedAuth(true);
+                setErrorMessage("Une erreur est survenue");
             });
     };
 
@@ -102,7 +104,7 @@ const AuthContextProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ loged, handleLogin, handleLogout, verifyToken, isLogged, user, loadedAuth }}>
+        <AuthContext.Provider value={{ loged, handleLogin, handleLogout, verifyToken, isLogged, user, loadedAuth, errorMessage }}>
             {children}
         </AuthContext.Provider>
     );
