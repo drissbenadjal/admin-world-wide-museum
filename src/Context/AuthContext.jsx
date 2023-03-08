@@ -98,11 +98,13 @@ const AuthContextProvider = ({ children }) => {
             });
     };
 
+
+
+
     const handleLogout = () => {
         setLoged(false);
         setUser([]);
         removeCookie("token");
-        window.location.href = "/";
     };
 
     return (

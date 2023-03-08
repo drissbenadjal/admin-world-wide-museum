@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 import { AuthContext } from "../Context/AuthContext";
 
@@ -11,9 +11,15 @@ import logout from "../images/icons/logout.svg";
 
 export const Sidebar = () => {
 
-    const { user, handleLogin, handleLogout } = useContext(AuthContext);
+    const { handleLogout } = useContext(AuthContext);
 
     const location = useLocation();
+    const navigate = useNavigate();
+
+    const hLogout = () => {
+        handleLogout();
+        navigate('/');
+    };
 
     return (
         <>
@@ -41,7 +47,7 @@ export const Sidebar = () => {
                 </ul>
                 <ul className="link-secondary">
                     <li>
-                        <button onClick={handleLogout}>
+                        <button onClick={hLogout}>
                             <div className="link-content">
                                 <img className="icons" src={logout} alt="" />
                                 <p>Déconnexion</p>

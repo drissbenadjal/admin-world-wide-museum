@@ -1,5 +1,5 @@
-import React, { useRef, useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useRef, useContext, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 import { AuthContext } from "../Context/AuthContext";
 
@@ -7,6 +7,14 @@ import { AuthContext } from "../Context/AuthContext";
 import logo from "../images/logo.svg";
 
 export const Login = ({ login }) => {
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (window.location.pathname === "/") {
+      navigate('/');
+    }
+  }, [navigate]);
 
   const { errorMessage } = useContext(AuthContext);
 
