@@ -9,7 +9,11 @@ import { ResaTable } from "../components/ResaTable";
 
 export const Main = () => {
 
-    const { user } = useContext(AuthContext);
+    const { user, isLogged } = useContext(AuthContext);
+
+    useEffect(() => {
+        isLogged();
+    }, []);
 
     const [loaded, setLoaded] = useState(false);
     const [reservations, setReservations] = useState([]);
