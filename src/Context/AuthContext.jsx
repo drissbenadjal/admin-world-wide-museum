@@ -1,5 +1,7 @@
 import React, { createContext, useState, useEffect } from 'react';
 
+import { addCookie, getCookie, removeCookie } from '../utils/cookieUtils';
+
 const AuthContext = createContext();
 
 const AuthContextProvider = ({ children }) => {
@@ -32,25 +34,25 @@ const AuthContextProvider = ({ children }) => {
                 } else {
                     setLoged(false);
                     setUser([]);
-                    localStorage.removeItem("token");
+                    removeCookie("token");
                 }
                 setLoadedAuth(true);
             })
             .catch((error) => {
                 setLoged(false);
                 setUser([]);
-                localStorage.removeItem("token");
+                removeCookie("token");
                 setLoadedAuth(true);
             });
     };
 
     const isLogged = () => {
-        if (localStorage.getItem("token")) {
-            verifyToken(localStorage.getItem("token"));
+        if (getCookie("token")) {
+            verifyToken(getCookie("token"));
         } else {
             setLoged(false);
             setUser([]);
-            localStorage.removeItem("token");
+            removeCookie("token");
             setLoadedAuth(true);
         }
     };
@@ -74,7 +76,7 @@ const AuthContextProvider = ({ children }) => {
             .then((response) => response.json())
             .then((data) => {
                 if (data.status === "success") {
-                    localStorage.setItem("token", data.token);
+                    addCookie("token", data.token, 1);
                     setLoged(true);
                     const user = {
                         id: data.id,
@@ -85,14 +87,14 @@ const AuthContextProvider = ({ children }) => {
                 } else {
                     setLoged(false);
                     setUser([]);
-                    localStorage.removeItem("token");
+                    removeCookie("token");
                     setErrorMessage('Identifiants incorrects');
                 }
             })
             .catch((error) => {
                 setLoged(false);
                 setUser([]);
-                localStorage.removeItem("token");
+                removeCookie("token");
                 setErrorMessage("Une erreur est survenue");
             });
     };
@@ -100,7 +102,7 @@ const AuthContextProvider = ({ children }) => {
     const handleLogout = () => {
         setLoged(false);
         setUser([]);
-        localStorage.removeItem("token");
+        removeCookie("token");
     };
 
     return (
