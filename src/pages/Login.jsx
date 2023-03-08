@@ -1,3 +1,4 @@
+import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 
 //images
@@ -12,9 +13,12 @@ export const Login = ({ login }) => {
   const randomImg = listImg[Math.floor(Math.random() * listImg.length)];
   let img = pathImg + randomImg + extImg;
 
+  const loginRef = useRef(null);
+  const passwordRef = useRef(null);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    login();
+    login(loginRef.current.value, passwordRef.current.value);
   };
 
   return (
@@ -31,6 +35,7 @@ export const Login = ({ login }) => {
                 name="login"
                 id="login"
                 placeholder="exemple@gmail.com"
+                ref={loginRef}
               />
               <small></small>
             </div>
@@ -43,6 +48,7 @@ export const Login = ({ login }) => {
                 name="password"
                 id="password"
                 placeholder="Veuillez saisir votre mot de passe"
+                ref={passwordRef}
               />
               <small></small>
             </div>
