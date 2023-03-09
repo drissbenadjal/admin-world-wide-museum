@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 
 import { AuthContext } from "../Context/AuthContext";
@@ -21,15 +21,30 @@ export const Sidebar = () => {
         navigate('/');
     };
 
+    const sidebar = useRef(null);
+    const burgerIcon = useRef(null);
+
+    const handleBurger = () => {
+        if (window.innerWidth > 768) return
+        sidebar.current.classList.toggle('active');
+        burgerIcon.current.classList.toggle('active');
+    }
+
     return (
         <>
-            <nav className="sidebar">
-                <Link to="/" className="link_logo">
-                    <img className="logo" src={logo} alt="Logo" />
-                </Link>
+            <nav className="sidebar" ref={sidebar}>
+                <div className="top-nav">
+                    <Link to="/" className="link_logo">
+                        <img className="logo" src={logo} alt="Logo" />
+                    </Link>
+                    <button onClick={handleBurger}>
+                        <div className="burgerIcon" ref={burgerIcon}></div>
+                        <span className="sr-only">Menu de navigation</span>
+                    </button>
+                </div>
                 <ul className="link-main">
                     <li>
-                        <Link to={`/dashboard`} className={location.pathname === "/dashboard" || location.pathname === "/" ? "active" : ""}>
+                        <Link to={`/dashboard`} className={location.pathname === "/dashboard" || location.pathname === "/" ? "active" : ""} onClick={handleBurger}>
                             <div className="link-content">
                                 <img src={dashboard} alt="" />
                                 <p>Dashboard</p>
@@ -37,7 +52,7 @@ export const Sidebar = () => {
                         </Link>
                     </li>
                     <li>
-                        <Link to={`/dashboard/reservations`} className={location.pathname === "/dashboard/reservations" ? "active" : ""}>
+                        <Link to={`/dashboard/reservations`} className={location.pathname === "/dashboard/reservations" ? "active" : ""} onClick={handleBurger}>
                             <div className="link-content">
                                 <img src={tickets} alt="" />
                                 <p>Réservations</p>
@@ -47,7 +62,7 @@ export const Sidebar = () => {
                 </ul>
                 <ul className="link-secondary">
                     <li>
-                        <button onClick={hLogout}>
+                        <button onClick={() => { hLogout(); handleBurger(); }}>
                             <div className="link-content">
                                 <img className="icons" src={logout} alt="" />
                                 <p>Déconnexion</p>

@@ -73,6 +73,29 @@ body {
   color: var(--white);
 }
 
+.sr-only {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.sr-only-focusable:active,
+.sr-only-focusable:focus {
+  clip: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  position: static;
+  white-space: normal;
+  width: auto;
+}
+
 img {
   -webkit-user-select: none;
 }
@@ -159,6 +182,7 @@ small,
   font-size: var(--small);
 }
 
+
 /* Button */
 .btn {
   color: var(--blue);
@@ -200,6 +224,8 @@ nav a {
 .link {
   position: relative;
   transition: 0.2s;
+  text-decoration: none;
+  color: var(--blue);
 }
 
 .link::after {
@@ -459,19 +485,64 @@ main {
 }
 
 @media screen and (max-width: 750px) {
+  main {
+    padding-top: 72px;
+  }
+
   .sidebar {
-    pointer-events: none;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 100;
+    width: 100%;
+    height: 72px;
+    display: block;
+    padding: revert;
+    transition: 0.2s;
+  }
+
+  .sidebar .top-nav {
+    display: flex;
+    background-color: var(--black-lighter);
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 72px;
+    padding: 16px 24px;
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+
+  .sidebar .link_logo {
+    width: revert !important;
+  }
+
+  .sidebar .link_logo img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .sidebar ul {
+    display: none !important;
+  }
+
+  .sidebar button {
+    display: flex !important;
   }
 }
+
+
 
 .sidebar .link_logo {
   width: 100%;
   display: flex;
   justify-content: center;
+
+}
+
+.sidebar .link_logo img {
+  transition: width 0.2s, height 0.2s;
 }
 
 .sidebar .logo {
@@ -669,7 +740,172 @@ main {
   object-fit: contain;
 }
 
+
+/* Burger nav */
+
+.burgerIcon {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
+.burgerIcon {
+  position: relative;
+  display: inline-block;
+  width: 32px;
+  height: 2px;
+  border-radius: 2px;
+  background: white;
+  transition: all 0.2s ease-out;
+}
+
+.burgerIcon::before,
+.burgerIcon::after {
+  content: "";
+  width: 32px;
+  height: 2px;
+  background: white;
+  position: absolute;
+  border-radius: 2px;
+  left: 0;
+  transition: all 0.2s ease-out;
+}
+
+.burgerIcon::before {
+  top: -10px;
+}
+
+.burgerIcon::after {
+  bottom: -10px;
+}
+
+.sidebar button {
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.sidebar button:hover .burgerIcon::before {
+  top: -12px;
+}
+
+.sidebar button:hover .burgerIcon::after {
+  bottom: -12px;
+}
+
+.burgerIcon.active {
+  background: transparent !important;
+}
+
+.burgerIcon.active::before {
+  top: 0;
+  transform: rotateZ(45deg);
+}
+
+.burgerIcon.active::after {
+  bottom: 0;
+  transform: rotateZ(-45deg);
+}
+
+.sidebar button:hover .burgerIcon.active::before {
+  top: 0;
+  transform: rotateZ(45deg);
+}
+
+.sidebar button:hover .burgerIcon.active::after {
+  bottom: 0;
+  transform: rotateZ(-45deg);
+}
+
+.sidebar.active {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px;
+  height: 100%;
+}
+
+.sidebar.active .link-main {
+  height: 100%;
+  margin-top: 72px;
+}
+
+.sidebar.active ul {
+  display: flex !important;
+}
+
+.sidebar.active button {
+  display: flex;
+}
+
 /* Réservations */
+
+.refresh-table {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+
+.refresh-table button {
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
+  background-color: var(--black-lighter-2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 7px 7px;
+  transition: background-color 0.3s ease-in-out, transform 0.1s ease-in-out;
+}
+
+.refresh-table button:disabled {
+  cursor: not-allowed;
+}
+
+.refresh-table button svg {
+  width: 32px;
+  height: 32px;
+  -o-object-fit: contain;
+  object-fit: contain;
+}
+
+.refresh-table button:hover {
+  background-color: var(--black-lighter);
+}
+
+.refresh-table button:active {
+  transform: scale(0.90);
+}
+
+.resaTable__noResa {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30vh;
+  width: 100%;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--grey);
+}
+
+.resaTable {
+  width: 100%;
+  border-spacing: 0;
+}
+
 .resaTable {
   width: 100%;
   border-spacing: 0;
@@ -802,14 +1038,11 @@ main {
 
   .resaTable td:last-child {
     border-bottom: 0;
-  }
-
-  .resaTable td:last-child {
     border: none;
   }
 
-  .resaTable td:first-child {
-    border-left: none;
+  .resaTable td {
+    border-left: none !important;
   }
 
   .resaTable__delete:hover {
@@ -880,4 +1113,63 @@ main {
     flex-direction: column;
     gap: 16px;
   }
+}
+
+
+.notfound {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.notfound__loged {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.notfound .notfound__content,
+.notfound__loged .notfound__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+
+.notfound .notfound__container,
+.notfound__loged .notfound__container {
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+
+.notfound .notfound__content img,
+.notfound__loged .notfound__content img {
+  height: 200px;
+  width: 200px;
+}
+
+.notfound .notfound__content .notfound__text,
+.notfound__loged .notfound__content .notfound__text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 20px;
+}
+
+.notfound .notfound__content .notfound__text h1,
+.notfound__loged .notfound__content .notfound__text h1 {
+  margin: 1px;
+}
+
+.notfound .notfound__content .notfound__text p,
+.notfound__loged .notfound__content .notfound__text p {
+  max-width: 600px;
 }

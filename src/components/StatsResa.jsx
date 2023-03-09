@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { getCookie } from "../utils/cookieUtils";
+import { StatsCard } from "./StatsCard";
 
 export const StatsResa = ({ reservations }) => {
-  const resa = reservations;
+  const [resa, setResa] = useState([]);
+
+  useEffect(() => {
+    setResa(reservations)
+  }, [reservations])
+
   const [reservationsThisWeek, setReservationsThisWeek] = useState([]);
   const [reservationsLastWeek, setReservationsLastWeek] = useState([]);
   const [pourcentage, setPourcentage] = useState(0);
@@ -24,6 +30,7 @@ export const StatsResa = ({ reservations }) => {
       .then((response) => response.json())
       .then((data) => {
         setVisiteurs(data);
+        console.log(data);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -89,7 +96,7 @@ export const StatsResa = ({ reservations }) => {
         ]);
       }
     });
-  }, [reservations]);
+  }, [resa, reservations]);
 
   useEffect(() => {
     //faire la meme chose pour la semaine dernière mais le mois change donc il faut le prendre en compte
@@ -117,7 +124,7 @@ export const StatsResa = ({ reservations }) => {
         ]);
       }
     });
-  }, [reservationsThisWeek]);
+  }, [resa, reservationsThisWeek]);
 
   useEffect(() => {
     const diff = reservationsThisWeek.length - reservationsLastWeek.length;
@@ -133,23 +140,9 @@ export const StatsResa = ({ reservations }) => {
 
   return (
     <section className="statCards">
-      <div className="statCard">
-        <span className="statCard__progression">
-          {pourcentage > 0 ? "+ " + pourcentage + " %" : pourcentage + " %"}
-        </span>
-        <div className="statCard__number">{reservationsThisWeek.length}</div>
-        <div className="statCard__label">Réservations cette semaine</div>
-      </div>
-      <div className="statCard">
-        <div className="statCard__number">{reservations.length}</div>
-        <div className="statCard__label">Total de réservations</div>
-      </div>
-      <div className="statCard">
-        <div className="statCard__number">
-          {visiteursNbThisWeek}
-        </div>
-        <div className="statCard__label">Visiteurs cette semaine</div>
-      </div>
+      <StatsCard title="Réservations cette semaine" value={reservationsThisWeek.length} type="pourcentage" pourcentage={pourcentage} />
+      <StatsCard title="Total de réservations" value={reservations.length} />
+      <StatsCard title="Visiteurs cette semaine" value={visiteursNbThisWeek} />
     </section>
   );
 };
