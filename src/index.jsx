@@ -12,12 +12,14 @@ import { AuthContextProvider } from "./Context/AuthContext";
 
 //PAGES
 import { Dashboard } from "./view/Dashboard";
+import { Logout } from "./pages/Logout";
 
 const router = createBrowserRouter(
   createRoutesFromElements([
     <Route path="/" element={<Dashboard />} />,
     <Route path="/dashboard" element={<Dashboard />} />,
     <Route path="/dashboard/reservations" element={<Dashboard page="reservations" />} />,
+    <Route path="/logout" element={<Logout />} />,
     <Route path="*" element={<Dashboard page="notfound" />} />,
   ])
 );

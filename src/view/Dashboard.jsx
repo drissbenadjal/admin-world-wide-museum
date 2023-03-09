@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { AuthContext } from "../Context/AuthContext";
 
@@ -14,6 +15,8 @@ import { Loader } from "../components/Loader";
 
 export const Dashboard = ({ page }) => {
 
+  const navigate = useNavigate();
+
   const { loged, handleLogin, loadedAuth } = useContext(AuthContext);
 
   if (!loadedAuth) {
@@ -23,7 +26,9 @@ export const Dashboard = ({ page }) => {
   }
 
   if (!loged) {
-    if (page === "notfound") {
+    if (page === "reservations") {
+      navigate("/");
+    } else if (page === "notfound") {
       return (
         <>
           <NotFound />

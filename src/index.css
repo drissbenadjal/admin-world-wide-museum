@@ -660,7 +660,7 @@ main {
   border-radius: 5px;
 }
 
-.sidebar ul.link-secondary li button {
+.sidebar ul.link-secondary li a {
   color: var(--white);
   font-size: 1.2rem;
   font-weight: 500;
@@ -672,11 +672,11 @@ main {
   transition: color 0.3s ease-in-out;
 }
 
-.sidebar ul.link-secondary li button:hover {
+.sidebar ul.link-secondary li a:hover {
   color: var(--black-lighter-2);
 }
 
-.sidebar ul.link-secondary li button::before {
+.sidebar ul.link-secondary li a::before {
   content: "";
   position: absolute;
   z-index: 1;
@@ -687,7 +687,7 @@ main {
   transition: width 0.3s ease-in-out, background-color 0.3s ease-in-out;
 }
 
-.sidebar ul.link-secondary li button::before {
+.sidebar ul.link-secondary li a::before {
   content: "";
   position: absolute;
   z-index: 1;
@@ -698,7 +698,7 @@ main {
   transition: width 0.3s ease-in-out, background-color 0.3s ease-in-out;
 }
 
-.sidebar ul.link-secondary li button.active::before {
+.sidebar ul.link-secondary li a.active::before {
   content: "";
   position: absolute;
   z-index: 1;
@@ -709,12 +709,12 @@ main {
   transition: width 0.3s ease-in-out, background-color 0.3s ease-in-out;
 }
 
-.sidebar ul.link-secondary li button:hover::before {
+.sidebar ul.link-secondary li a:hover::before {
   width: 100%;
   background-color: var(--beige);
 }
 
-.sidebar ul.link-secondary li button .link-content {
+.sidebar ul.link-secondary li a .link-content {
   width: 100%;
   height: 100%;
   position: absolute;

@@ -16,11 +16,6 @@ export const Sidebar = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const hLogout = () => {
-        handleLogout();
-        navigate('/');
-    };
-
     const sidebar = useRef(null);
     const burgerIcon = useRef(null);
 
@@ -62,12 +57,12 @@ export const Sidebar = () => {
                 </ul>
                 <ul className="link-secondary">
                     <li>
-                        <button onClick={() => { hLogout(); handleBurger(); }}>
+                        <Link to={`/logout`}>
                             <div className="link-content">
                                 <img className="icons" src={logout} alt="" />
                                 <p>Déconnexion</p>
                             </div>
-                        </button>
+                        </Link>
                     </li>
                 </ul>
             </nav>
