@@ -28,7 +28,7 @@ export const StatsResa = ({ reservations }) => {
         ]);
       }
     });
-  }, [resa]);
+  }, [reservations]);
 
   useEffect(() => {
     //faire la meme chose pour la semaine dernière mais le mois change donc il faut le prendre en compte
