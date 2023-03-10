@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 
 import { AuthContext } from "../Context/AuthContext";
+import { getCookie } from "../utils/cookieUtils";
 
 import { Loader } from "../components/Loader";
 import { StatsResa } from "../components/StatsResa";
@@ -21,10 +22,14 @@ export const Main = () => {
     const fetchResa = () => {
         fetch("https://benadjal.butmmi.o2switch.site/api_resa_expo/reservations/",
             {
-                method: "GET",
+                method: "POST",
                 headers: {
                     "Content-Type": "application/json"
-                }
+                },
+                body: JSON.stringify({
+                    "all": true,
+                    "token": getCookie("token")
+                })
             })
             .then((response) => response.json())
             .then((data) => {
