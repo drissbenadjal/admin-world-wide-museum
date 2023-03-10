@@ -6,7 +6,7 @@ const AuthContext = createContext();
 const AuthContextProvider = ({ children }) => {
 
     const [loadedAuth, setLoadedAuth] = useState(false);
-    const [user, setUser] = useState([]);
+    const [user, setUser] = useState({});
     const [loged, setLoged] = useState();
     const [errorMessage, setErrorMessage] = useState(false);
 
@@ -32,7 +32,7 @@ const AuthContextProvider = ({ children }) => {
                     setUser(user);
                 } else {
                     setLoged(false);
-                    setUser([]);
+                    setUser({});
                     removeCookie("token");
                 }
                 setLoadedAuth(true);
@@ -99,11 +99,9 @@ const AuthContextProvider = ({ children }) => {
     };
 
 
-
-
     const handleLogout = () => {
         setLoged(false);
-        setUser([]);
+        setUser({});
         removeCookie("token");
     };
 
