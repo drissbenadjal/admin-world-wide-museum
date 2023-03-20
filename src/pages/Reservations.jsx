@@ -17,21 +17,20 @@ export const Reservations = () => {
     const [loaded, setLoaded] = useState(false);
     const [reservations, setReservations] = useState([]);
 
-    const fetchResa = async () => {
-        fetch("https://benadjal.butmmi.o2switch.site/api_resa_expo/reservations/",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    "all": true,
-                    "token": getCookie("token")
-                })
-            })
+    const fetchResa = () => {
+        fetch("https://benadjal.butmmi.o2switch.site/api_resa_expo/reservations/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                all: true,
+                token: getCookie("token"),
+            }),
+        })
             .then((response) => response.json())
             .then((data) => {
-                setReservations(data);
+                setReservations(data.reservations);
                 setTimeout(() => {
                     setLoaded(true);
                 }, 200);

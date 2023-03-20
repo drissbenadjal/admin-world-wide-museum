@@ -33,7 +33,9 @@ export const Main = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        setReservations(data);
+        setReservations(data.reservations);
+        setCountReservationsThisWeek(data.countReservationsThisWeek);
+        setCountReservationsLastWeek(data.countReservationsLastWeek);
         setTimeout(() => {
           setLoaded(true);
         }, 200);
@@ -52,9 +54,9 @@ export const Main = () => {
       {!loaded && <Loader />}
       <h1>Bienvenue {user.pseudo}</h1>
       <StatsResa
-        reservations={
-          (reservations, countReservationsThisWeek, countReservationsLastWeek)
-        }
+        reservations={reservations}
+        countReservationsThisWeek={countReservationsThisWeek}
+        countReservationsLastWeek={countReservationsLastWeek}
       />
       <ResaTable reservations={reservations} fetchResa={() => fetchResa()} />
     </>

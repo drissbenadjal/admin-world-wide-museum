@@ -4,19 +4,12 @@ import { StatsCard } from "./StatsCard";
 
 export const StatsResa = ({
   reservations,
-  reservationsThisWeek,
-  reservationsLastWeek,
+  countReservationsThisWeek,
+  countReservationsLastWeek,
 }) => {
-  const [resa, setResa] = useState([]);
-
-  useEffect(() => {
-    setResa(reservations);
-  }, [reservations]);
 
   const [pourcentage, setPourcentage] = useState(0);
-  const [visiteurs, setVisiteurs] = useState([]);
-  const [visiteursThisWeek, setVisiteursThisWeek] = useState([]);
-  const [visiteursNbThisWeek, setVisiteursNbThisWeek] = useState(0);
+  const [visiteurs, setVisiteurs] = useState(0);
 
   const fetchPresences = async () => {
     fetch("https://benadjal.butmmi.o2switch.site/api_resa_expo/visiteurs/", {
@@ -42,92 +35,24 @@ export const StatsResa = ({
   }, []);
 
   useEffect(() => {
-    //additionner les places de cette semaine
-    if (visiteursThisWeek.length === 0) {
-      return;
-    }
-    let total = 0;
-    visiteursThisWeek.forEach((v) => {
-      total = total + parseInt(v.place_reservation);
-    });
-    setVisiteursNbThisWeek(total);
-  }, [visiteursThisWeek]);
-
-  useEffect(() => {
-    if (resa.length === 0) {
-      return;
-    }
-    const now = new Date();
-    // obtenir le lundi de la semaine en cours
-    const monday = new Date(now.setDate(now.getDate() - now.getDay() + 1));
-    // obtenir le dimanche de la semaine en cours
-    const sunday = new Date(now.setDate(now.getDate() - now.getDay() + 7));
-
-    // filtrer les réservations de la semaine en cours
-    resa.filter((r) => {
-      const resaDate = new Date(r.date_reservation);
-      if (resaDate >= monday && resaDate <= sunday) {
-        setReservationsThisWeek((reservationsThisWeek) => [
-          ...reservationsThisWeek,
-          r,
-        ]);
-      }
-    });
-  }, [resa, reservations]);
-
-  useEffect(() => {
-    //faire la meme chose pour la semaine dernière mais le mois change donc il faut le prendre en compte
-    if (resa.length === 0) {
-      return;
-    }
-    const now = new Date();
-
-    // obtenir le lundi de la semaine en cours
-    const monday = new Date(now.setDate(now.getDate() - now.getDay() + 1));
-    // obtenir le dimanche de la semaine en cours
-    const sunday = new Date(now.setDate(now.getDate() - now.getDay() + 7));
-
-    const lastMonday = monday - 604800000;
-    const lastSunday = sunday - 604800000;
-    // obtenir le nombre de reservation de la semainen dernière
-
-    // filtrer les réservations de la semaine en cours
-    resa.filter((r) => {
-      const resaDate = new Date(r.date_reservation);
-      if (resaDate >= lastMonday && resaDate <= lastSunday) {
-        setReservationsLastWeek((reservationsLastWeek) => [
-          ...reservationsLastWeek,
-          r,
-        ]);
-      }
-    });
-  }, [resa, reservationsThisWeek]);
-
-  console.log(reservations);
-  useEffect(() => {
-    setReservationsThisWeek(reservations.countReservationsThisWeek);
-    setReservationsLastWeek(reservations.countReservationsLastWeek);
-  }, [reservations]);
-
-  // console.log(reservationsThisWeek, reservationsLastWeek);
-
-  useEffect(() => {
-    const diff = reservationsThisWeek.length - reservationsLastWeek.length;
-    let pourcentage = Math.round((diff / reservationsLastWeek.length) * 100);
+    //faire le taux d'evolution
+    let pourcentage = Math.round(
+      ((countReservationsThisWeek / countReservationsLastWeek) - 1) * 100
+    );
     if (isNaN(pourcentage)) {
       pourcentage = 0;
     }
-    if (Infinity === pourcentage) {
+    if (pourcentage === Infinity) {
       pourcentage = 100;
     }
     setPourcentage(pourcentage);
-  }, [reservationsThisWeek, reservationsLastWeek]);
+  }, [countReservationsThisWeek, countReservationsLastWeek]);
 
   return (
     <section className="statCards">
       <StatsCard
         title="Réservations cette semaine"
-        value={reservationsThisWeek.length}
+        value={countReservationsThisWeek}
         type="pourcentage"
         pourcentage={pourcentage}
       />
