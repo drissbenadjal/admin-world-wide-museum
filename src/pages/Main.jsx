@@ -9,52 +9,54 @@ import { StatsResa } from "../components/StatsResa";
 import { ResaTable } from "../components/ResaTable";
 
 export const Main = () => {
+  const { user, isLogged } = useContext(AuthContext);
 
-    const { user, isLogged } = useContext(AuthContext);
+  useEffect(() => {
+    isLogged();
+  }, []);
 
-    useEffect(() => {
-        isLogged();
-    }, []);
+  const [loaded, setLoaded] = useState(false);
+  const [reservations, setReservations] = useState([]);
+  const [countReservationsThisWeek, setCountReservationsThisWeek] = useState(0);
+  const [countReservationsLastWeek, setCountReservationsLastWeek] = useState(0);
 
-    const [loaded, setLoaded] = useState(false);
-    const [reservations, setReservations] = useState([]);
+  const fetchResa = () => {
+    fetch("https://benadjal.butmmi.o2switch.site/api_resa_expo/reservations/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        all: true,
+        token: getCookie("token"),
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setReservations(data);
+        setTimeout(() => {
+          setLoaded(true);
+        }, 200);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
 
-    const fetchResa = () => {
-        fetch("https://benadjal.butmmi.o2switch.site/api_resa_expo/reservations/",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    "all": true,
-                    "token": getCookie("token")
-                })
-            })
-            .then((response) => response.json())
-            .then((data) => {
-                setReservations(data);
-                setTimeout(() => {
-                    setLoaded(true);
-                }, 200);
-            })
-            .catch((error) => {
-                console.error("Error:", error);
-            });
-    };
+  useEffect(() => {
+    fetchResa();
+  }, []);
 
-    useEffect(() => {
-        fetchResa();
-    }, []);
-
-    return (
-        <>
-            {
-                !loaded && <Loader />
-            }
-            <h1>Bienvenue {user.pseudo}</h1>
-            <StatsResa reservations={reservations} />
-            <ResaTable reservations={reservations} fetchResa={() => fetchResa()} />
-        </>
-    );
-}
+  return (
+    <>
+      {!loaded && <Loader />}
+      <h1>Bienvenue {user.pseudo}</h1>
+      <StatsResa
+        reservations={
+          (reservations, countReservationsThisWeek, countReservationsLastWeek)
+        }
+      />
+      <ResaTable reservations={reservations} fetchResa={() => fetchResa()} />
+    </>
+  );
+};

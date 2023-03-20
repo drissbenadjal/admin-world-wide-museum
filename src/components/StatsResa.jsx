@@ -2,63 +2,44 @@ import React, { useState, useEffect } from "react";
 import { getCookie } from "../utils/cookieUtils";
 import { StatsCard } from "./StatsCard";
 
-export const StatsResa = ({ reservations }) => {
+export const StatsResa = ({
+  reservations,
+  reservationsThisWeek,
+  reservationsLastWeek,
+}) => {
   const [resa, setResa] = useState([]);
 
   useEffect(() => {
-    setResa(reservations)
-  }, [reservations])
+    setResa(reservations);
+  }, [reservations]);
 
-  const [reservationsThisWeek, setReservationsThisWeek] = useState([]);
-  const [reservationsLastWeek, setReservationsLastWeek] = useState([]);
   const [pourcentage, setPourcentage] = useState(0);
   const [visiteurs, setVisiteurs] = useState([]);
   const [visiteursThisWeek, setVisiteursThisWeek] = useState([]);
   const [visiteursNbThisWeek, setVisiteursNbThisWeek] = useState(0);
 
-  useEffect(() => {
-    fetch('https://benadjal.butmmi.o2switch.site/api_resa_expo/visiteurs/',
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          token: getCookie("token"),
-        }),
-      })
+  const fetchPresences = async () => {
+    fetch("https://benadjal.butmmi.o2switch.site/api_resa_expo/visiteurs/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        token: getCookie("token"),
+      }),
+    })
       .then((response) => response.json())
       .then((data) => {
         setVisiteurs(data);
-        console.log(data);
       })
       .catch((error) => {
         console.error("Error:", error);
       });
-  }, []);
+  };
 
   useEffect(() => {
-    //recuperer les "place_reservation" dans visiteurs de cette semaine par rapport a "date_reservation"
-    if (visiteurs.length === 0) {
-      return;
-    }
-    const now = new Date();
-    // obtenir le lundi de la semaine en cours
-    const monday = new Date(now.setDate(now.getDate() - now.getDay() + 1));
-    // obtenir le dimanche de la semaine en cours
-    const sunday = new Date(now.setDate(now.getDate() - now.getDay() + 7));
-
-    visiteurs.filter((v) => {
-      const visiteurDate = new Date(v.date_reservation);
-      //si c'est cette semaine prendre prendre les places et les additionner
-      if (visiteurDate >= monday && visiteurDate <= sunday) {
-        setVisiteursThisWeek((visiteursThisWeek) => [
-          ...visiteursThisWeek,
-          v,
-        ]);
-      }
-    });
-  }, [visiteurs]);
+    fetchPresences();
+  }, []);
 
   useEffect(() => {
     //additionner les places de cette semaine
@@ -72,8 +53,6 @@ export const StatsResa = ({ reservations }) => {
     setVisiteursNbThisWeek(total);
   }, [visiteursThisWeek]);
 
-
-
   useEffect(() => {
     if (resa.length === 0) {
       return;
@@ -83,8 +62,6 @@ export const StatsResa = ({ reservations }) => {
     const monday = new Date(now.setDate(now.getDate() - now.getDay() + 1));
     // obtenir le dimanche de la semaine en cours
     const sunday = new Date(now.setDate(now.getDate() - now.getDay() + 7));
-
-    // obtenir le nombre de reservation de la semainen dernière
 
     // filtrer les réservations de la semaine en cours
     resa.filter((r) => {
@@ -126,6 +103,14 @@ export const StatsResa = ({ reservations }) => {
     });
   }, [resa, reservationsThisWeek]);
 
+  console.log(reservations);
+  useEffect(() => {
+    setReservationsThisWeek(reservations.countReservationsThisWeek);
+    setReservationsLastWeek(reservations.countReservationsLastWeek);
+  }, [reservations]);
+
+  // console.log(reservationsThisWeek, reservationsLastWeek);
+
   useEffect(() => {
     const diff = reservationsThisWeek.length - reservationsLastWeek.length;
     let pourcentage = Math.round((diff / reservationsLastWeek.length) * 100);
@@ -140,9 +125,17 @@ export const StatsResa = ({ reservations }) => {
 
   return (
     <section className="statCards">
-      <StatsCard title="Réservations cette semaine" value={reservationsThisWeek.length} type="pourcentage" pourcentage={pourcentage} />
+      <StatsCard
+        title="Réservations cette semaine"
+        value={reservationsThisWeek.length}
+        type="pourcentage"
+        pourcentage={pourcentage}
+      />
       <StatsCard title="Total de réservations" value={reservations.length} />
-      <StatsCard title="Visiteurs cette semaine" value={visiteursNbThisWeek} />
+      <StatsCard
+        title="Visiteurs cette semaine"
+        value={visiteurs.countPresence}
+      />
     </section>
   );
 };
