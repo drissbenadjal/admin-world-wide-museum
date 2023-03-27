@@ -470,6 +470,11 @@ main {
     -webkit-filter 0.7s ease-in-out;
 }
 
+.login__form p {
+  margin-top: 15px;
+  font-size: 0.8em;
+}
+
 /*Sidebar*/
 
 .sidebar {
@@ -909,6 +914,10 @@ main {
 .resaTable {
   width: 100%;
   border-spacing: 0;
+}
+
+.resaTable caption {
+  opacity: 0;
 }
 
 .resaTable__head th {

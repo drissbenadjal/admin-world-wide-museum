@@ -60,14 +60,15 @@ export const ResaTable = ({ reservations, fetchResa }) => {
             <p>Aucune réservation pour le moment</p>
           </div> :
           <table className="resaTable">
+          <caption>Réservations de l'exposition</caption>
             <thead className="resaTable__head">
               <tr>
-                <th scope="col">Prénom</th>
-                <th scope="col">Nom</th>
-                <th scope="col">Place(s)</th>
-                <th scope="col">Date</th>
-                <th scope="col">Horaire</th>
-                <th scope="col">Date de réservation</th>
+                <th scope="col" id="prenom">Prénom</th>
+                <th scope="col" id="nom">Nom</th>
+                <th scope="col" id="places">Place(s)</th>
+                <th scope="col" id="date">Date</th>
+                <th scope="col" id="horaire">Horaire</th>
+                <th scope="col" id="datedereservation">Date de réservation</th>
                 <th></th>
               </tr>
             </thead>
@@ -104,32 +105,33 @@ export const ResaTable = ({ reservations, fetchResa }) => {
 
                 return (
                   <tr key={r.id_reservation}>
-                    <td data-label="Prénom">
+                    <td data-label="Prénom" id="prenom">
                       <p>
                         {r.prenom_reservation.length > 10
                           ? r.prenom_reservation.substring(0, 10) + "..."
                           : r.prenom_reservation}
                       </p>
                     </td>
-                    <td data-label="Nom">
+                    <td data-label="Nom" id="nom">
                       <p>
                         {r.nom_reservation.length > 10
                           ? r.nom_reservation.substring(0, 10) + "..."
                           : r.nom_reservation}
                       </p>
                     </td>
-                    <td data-label="Place(s)">
+                    <td data-label="Place(s)" id="places">
                       <p>{r.place_reservation}</p>
                     </td>
-                    <td data-label="Date">
+                    <td data-label="Date" id="date">
                       <p>{date_reservation}</p>
                     </td>
-                    <td data-label="Horaire">
+                    <td data-label="Horaire" id="horaire">
                       <p>{hour_reservation}</p>
                     </td>
                     <td
 
-                      data-label="Date de réservation"
+                      data-label="Date de réservation" 
+                      id="datedereservation"
                       className="resaTable__dateResa"
                     >
                       <p>{date_creation_reservation}</p>

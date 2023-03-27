@@ -74,8 +74,9 @@ export const Login = ({ login }) => {
             value="Se connecter"
             className="btn"
           />
+          <p>* Champs obligatoires</p>
           {
-            img && <img className="img__login" src={img} alt="login" />
+            img && <img className="img__login" src={img} alt="" />
           }
         </form>
       </div>

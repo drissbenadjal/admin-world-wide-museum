@@ -30,7 +30,7 @@ export const Sidebar = () => {
             <nav className="sidebar" ref={sidebar}>
                 <div className="top-nav">
                     <Link to="/" className="link_logo">
-                        <img className="logo" src={logo} alt="Logo" />
+                        <img className="logo" src={logo} alt="dashboard" />
                     </Link>
                     <button onClick={handleBurger}>
                         <div className="burgerIcon" ref={burgerIcon}></div>
