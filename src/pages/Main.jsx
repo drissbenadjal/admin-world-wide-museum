@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
 
 import { AuthContext } from "../Context/AuthContext";
 import { getCookie } from "../utils/cookieUtils";
